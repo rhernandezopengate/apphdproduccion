@@ -1,0 +1,556 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="DB_A3F19C_producccionModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+  <EntityType Name="wl_detcajassku">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Cantidad" Type="Int32" />
+    <Property Name="wl_cajas_Id" Type="Int32" Nullable="false" />
+    <Property Name="skus_Id" Type="Int32" Nullable="false" />
+    <NavigationProperty Name="skus" Relationship="DB_A3F19C_producccionModel.wl_detcajasku_skus_fk" FromRole="wl_detcajassku" ToRole="skus" />
+    <NavigationProperty Name="wl_cajas" Relationship="DB_A3F19C_producccionModel.wl_detcajasku_wl_cajas_fk" FromRole="wl_detcajassku" ToRole="wl_cajas" />
+  </EntityType>
+  <EntityType Name="wl_detenvios">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="wl_tiendas_Id" Type="Int32" Nullable="false" />
+    <Property Name="wl_cajas_Id" Type="Int32" Nullable="false" />
+    <Property Name="wl_guias_Id" Type="Int32" Nullable="false" />
+    <Property Name="wl_waldos_Id" Type="Int32" Nullable="false" />
+    <NavigationProperty Name="wl_guias" Relationship="Self.wl_detenvios_wl_guias_fk" FromRole="wl_detenvios" ToRole="wl_guias" />
+    <NavigationProperty Name="wl_tiendas" Relationship="Self.wl_detenvios_wl_tiendas_fk" FromRole="wl_detenvios" ToRole="wl_tiendas" />
+    <NavigationProperty Name="wl_waldos" Relationship="Self.wl_detenvios_wl_waldos_fk" FromRole="wl_detenvios" ToRole="wl_waldos" />
+    <NavigationProperty Name="wl_cajas" Relationship="DB_A3F19C_producccionModel.wl_detenvios_wl_cajas_fk" FromRole="wl_detenvios" ToRole="wl_cajas" />
+  </EntityType>
+  <EntityType Name="wl_guias">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="guia" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <NavigationProperty Name="wl_detenvios" Relationship="Self.wl_detenvios_wl_guias_fk" FromRole="wl_guias" ToRole="wl_detenvios" />
+  </EntityType>
+  <EntityType Name="wl_statuscajas">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="descripcion" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <NavigationProperty Name="wl_cajas" Relationship="DB_A3F19C_producccionModel.wl_cajas_wl_statuscajas_fk" FromRole="wl_statuscajas" ToRole="wl_cajas" />
+  </EntityType>
+  <EntityType Name="wl_tiendas">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="codigo" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="descripcion" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <NavigationProperty Name="wl_detenvios" Relationship="Self.wl_detenvios_wl_tiendas_fk" FromRole="wl_tiendas" ToRole="wl_detenvios" />
+  </EntityType>
+  <EntityType Name="wl_waldos">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="folio" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="fechaalta" Type="DateTime" Precision="3" />
+    <NavigationProperty Name="wl_detenvios" Relationship="Self.wl_detenvios_wl_waldos_fk" FromRole="wl_waldos" ToRole="wl_detenvios" />
+  </EntityType>
+  <Association Name="wl_detenvios_wl_guias_fk">
+    <End Role="wl_guias" Type="Self.wl_guias" Multiplicity="1" />
+    <End Role="wl_detenvios" Type="Self.wl_detenvios" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="wl_guias">
+        <PropertyRef Name="id" />
+      </Principal>
+      <Dependent Role="wl_detenvios">
+        <PropertyRef Name="wl_guias_Id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="wl_detenvios_wl_tiendas_fk">
+    <End Role="wl_tiendas" Type="Self.wl_tiendas" Multiplicity="1" />
+    <End Role="wl_detenvios" Type="Self.wl_detenvios" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="wl_tiendas">
+        <PropertyRef Name="id" />
+      </Principal>
+      <Dependent Role="wl_detenvios">
+        <PropertyRef Name="wl_tiendas_Id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="wl_detenvios_wl_waldos_fk">
+    <End Role="wl_waldos" Type="Self.wl_waldos" Multiplicity="1" />
+    <End Role="wl_detenvios" Type="Self.wl_detenvios" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="wl_waldos">
+        <PropertyRef Name="id" />
+      </Principal>
+      <Dependent Role="wl_detenvios">
+        <PropertyRef Name="wl_waldos_Id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityContainer Name="DB_A3F19C_producccionEntities" annotation:LazyLoadingEnabled="true">
+    <EntitySet Name="wl_detcajassku" EntityType="Self.wl_detcajassku" />
+    <EntitySet Name="wl_detenvios" EntityType="Self.wl_detenvios" />
+    <EntitySet Name="wl_guias" EntityType="Self.wl_guias" />
+    <EntitySet Name="wl_statuscajas" EntityType="Self.wl_statuscajas" />
+    <EntitySet Name="wl_tiendas" EntityType="Self.wl_tiendas" />
+    <EntitySet Name="wl_waldos" EntityType="Self.wl_waldos" />
+    <AssociationSet Name="wl_detenvios_wl_guias_fk" Association="Self.wl_detenvios_wl_guias_fk">
+      <End Role="wl_guias" EntitySet="wl_guias" />
+      <End Role="wl_detenvios" EntitySet="wl_detenvios" />
+    </AssociationSet>
+    <AssociationSet Name="wl_detenvios_wl_tiendas_fk" Association="Self.wl_detenvios_wl_tiendas_fk">
+      <End Role="wl_tiendas" EntitySet="wl_tiendas" />
+      <End Role="wl_detenvios" EntitySet="wl_detenvios" />
+    </AssociationSet>
+    <AssociationSet Name="wl_detenvios_wl_waldos_fk" Association="Self.wl_detenvios_wl_waldos_fk">
+      <End Role="wl_waldos" EntitySet="wl_waldos" />
+      <End Role="wl_detenvios" EntitySet="wl_detenvios" />
+    </AssociationSet>
+    <EntitySet Name="skus" EntityType="DB_A3F19C_producccionModel.skus" />
+    <AssociationSet Name="wl_detcajasku_skus_fk" Association="DB_A3F19C_producccionModel.wl_detcajasku_skus_fk">
+      <End Role="skus" EntitySet="skus" />
+      <End Role="wl_detcajassku" EntitySet="wl_detcajassku" />
+    </AssociationSet>
+    <EntitySet Name="auditores" EntityType="DB_A3F19C_producccionModel.auditores" />
+    <EntitySet Name="pickers" EntityType="DB_A3F19C_producccionModel.pickers" />
+    <EntitySet Name="empleados" EntityType="DB_A3F19C_producccionModel.empleados" />
+    <EntitySet Name="kits" EntityType="DB_A3F19C_producccionModel.kits" />
+    <EntitySet Name="kitskus" EntityType="DB_A3F19C_producccionModel.kitskus" />
+    <AssociationSet Name="kitskus_kits_fk" Association="DB_A3F19C_producccionModel.kitskus_kits_fk">
+      <End Role="kits" EntitySet="kits" />
+      <End Role="kitskus" EntitySet="kitskus" />
+    </AssociationSet>
+    <AssociationSet Name="kitskus_skus_fk" Association="DB_A3F19C_producccionModel.kitskus_skus_fk">
+      <End Role="skus" EntitySet="skus" />
+      <End Role="kitskus" EntitySet="kitskus" />
+    </AssociationSet>
+    <EntitySet Name="wl_cajas" EntityType="DB_A3F19C_producccionModel.wl_cajas" />
+    <AssociationSet Name="wl_cajas_auditores_fk" Association="DB_A3F19C_producccionModel.wl_cajas_auditores_fk">
+      <End Role="auditores" EntitySet="auditores" />
+      <End Role="wl_cajas" EntitySet="wl_cajas" />
+    </AssociationSet>
+    <AssociationSet Name="wl_cajas_pickers_fk" Association="DB_A3F19C_producccionModel.wl_cajas_pickers_fk">
+      <End Role="pickers" EntitySet="pickers" />
+      <End Role="wl_cajas" EntitySet="wl_cajas" />
+    </AssociationSet>
+    <AssociationSet Name="wl_cajas_wl_statuscajas_fk" Association="DB_A3F19C_producccionModel.wl_cajas_wl_statuscajas_fk">
+      <End Role="wl_statuscajas" EntitySet="wl_statuscajas" />
+      <End Role="wl_cajas" EntitySet="wl_cajas" />
+    </AssociationSet>
+    <AssociationSet Name="wl_detcajasku_wl_cajas_fk" Association="DB_A3F19C_producccionModel.wl_detcajasku_wl_cajas_fk">
+      <End Role="wl_cajas" EntitySet="wl_cajas" />
+      <End Role="wl_detcajassku" EntitySet="wl_detcajassku" />
+    </AssociationSet>
+    <AssociationSet Name="wl_detenvios_wl_cajas_fk" Association="DB_A3F19C_producccionModel.wl_detenvios_wl_cajas_fk">
+      <End Role="wl_cajas" EntitySet="wl_cajas" />
+      <End Role="wl_detenvios" EntitySet="wl_detenvios" />
+    </AssociationSet>
+    <EntitySet Name="skusbenavides" EntityType="DB_A3F19C_producccionModel.skusbenavides" />
+    <EntitySet Name="skushomedelivery" EntityType="DB_A3F19C_producccionModel.skushomedelivery" />
+    <AssociationSet Name="skusbenavides_skus_fk" Association="DB_A3F19C_producccionModel.skusbenavides_skus_fk">
+      <End Role="skus" EntitySet="skus" />
+      <End Role="skusbenavides" EntitySet="skusbenavides" />
+    </AssociationSet>
+    <AssociationSet Name="skushomedelivery_skus_fk" Association="DB_A3F19C_producccionModel.skushomedelivery_skus_fk">
+      <End Role="skus" EntitySet="skus" />
+      <End Role="skushomedelivery" EntitySet="skushomedelivery" />
+    </AssociationSet>
+    <EntitySet Name="hd_codigosqr" EntityType="DB_A3F19C_producccionModel.hd_codigosqr" />
+    <EntitySet Name="hd_guias" EntityType="DB_A3F19C_producccionModel.hd_guias" />
+    <EntitySet Name="hd_ordenes" EntityType="DB_A3F19C_producccionModel.hd_ordenes" />
+    <EntitySet Name="hd_statusorden" EntityType="DB_A3F19C_producccionModel.hd_statusorden" />
+    <EntitySet Name="hd_statusquickship" EntityType="DB_A3F19C_producccionModel.hd_statusquickship" />
+    <EntitySet Name="hd_detordenesskus" EntityType="DB_A3F19C_producccionModel.hd_detordenesskus" />
+    <AssociationSet Name="hd_ordenes_auditores_fk" Association="DB_A3F19C_producccionModel.hd_ordenes_auditores_fk">
+      <End Role="auditores" EntitySet="auditores" />
+      <End Role="hd_ordenes" EntitySet="hd_ordenes" />
+    </AssociationSet>
+    <AssociationSet Name="hd_codigosqr_hd_ordenes_fk" Association="DB_A3F19C_producccionModel.hd_codigosqr_hd_ordenes_fk">
+      <End Role="hd_ordenes" EntitySet="hd_ordenes" />
+      <End Role="hd_codigosqr" EntitySet="hd_codigosqr" />
+    </AssociationSet>
+    <AssociationSet Name="hd_ordenes_hd_guias_fk" Association="DB_A3F19C_producccionModel.hd_ordenes_hd_guias_fk">
+      <End Role="hd_guias" EntitySet="hd_guias" />
+      <End Role="hd_ordenes" EntitySet="hd_ordenes" />
+    </AssociationSet>
+    <AssociationSet Name="hd_ordenes_hd_statusorden_fk" Association="DB_A3F19C_producccionModel.hd_ordenes_hd_statusorden_fk">
+      <End Role="hd_statusorden" EntitySet="hd_statusorden" />
+      <End Role="hd_ordenes" EntitySet="hd_ordenes" />
+    </AssociationSet>
+    <AssociationSet Name="hd_ordenes_hd_statusquickship_fk" Association="DB_A3F19C_producccionModel.hd_ordenes_hd_statusquickship_fk">
+      <End Role="hd_statusquickship" EntitySet="hd_statusquickship" />
+      <End Role="hd_ordenes" EntitySet="hd_ordenes" />
+    </AssociationSet>
+    <AssociationSet Name="hd_ordenes_pickers_fk" Association="DB_A3F19C_producccionModel.hd_ordenes_pickers_fk">
+      <End Role="pickers" EntitySet="pickers" />
+      <End Role="hd_ordenes" EntitySet="hd_ordenes" />
+    </AssociationSet>
+  </EntityContainer>
+  <EntityType Name="skus">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="SKU" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="Descripcion" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+    <Property Name="codigobarras" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="uom_id" Type="Int32" Nullable="false" />
+    <NavigationProperty Name="wl_detcajassku" Relationship="DB_A3F19C_producccionModel.wl_detcajasku_skus_fk" FromRole="skus" ToRole="wl_detcajassku" />
+    <NavigationProperty Name="kitskus" Relationship="DB_A3F19C_producccionModel.kitskus_skus_fk" FromRole="skus" ToRole="kitskus" />
+    <NavigationProperty Name="skusbenavides" Relationship="DB_A3F19C_producccionModel.skusbenavides_skus_fk" FromRole="skus" ToRole="skusbenavides" />
+    <NavigationProperty Name="skushomedelivery" Relationship="DB_A3F19C_producccionModel.skushomedelivery_skus_fk" FromRole="skus" ToRole="skushomedelivery" />
+  </EntityType>
+  <Association Name="wl_detcajasku_skus_fk">
+    <End Type="DB_A3F19C_producccionModel.skus" Role="skus" Multiplicity="1" />
+    <End Type="DB_A3F19C_producccionModel.wl_detcajassku" Role="wl_detcajassku" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="skus">
+        <PropertyRef Name="id" />
+      </Principal>
+      <Dependent Role="wl_detcajassku">
+        <PropertyRef Name="skus_Id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityType Name="auditores">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="nombres" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <NavigationProperty Name="wl_cajas" Relationship="DB_A3F19C_producccionModel.wl_cajas_auditores_fk" FromRole="auditores" ToRole="wl_cajas" />
+    <NavigationProperty Name="hd_ordenes" Relationship="DB_A3F19C_producccionModel.hd_ordenes_auditores_fk" FromRole="auditores" ToRole="hd_ordenes" />
+  </EntityType>
+  <EntityType Name="pickers">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="nombres" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <NavigationProperty Name="wl_cajas" Relationship="DB_A3F19C_producccionModel.wl_cajas_pickers_fk" FromRole="pickers" ToRole="wl_cajas" />
+    <NavigationProperty Name="hd_ordenes" Relationship="DB_A3F19C_producccionModel.hd_ordenes_pickers_fk" FromRole="pickers" ToRole="hd_ordenes" />
+  </EntityType>
+  <EntityType Name="empleados">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="FechaAlta" Type="DateTime" Precision="3" />
+    <Property Name="Nombres" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+    <Property Name="ApellidoPaterno" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="ApellidoMaterno" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="Email" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+    <Property Name="FechaEntrada" Type="DateTime" Precision="0" />
+    <Property Name="Puestos_Id" Type="Int32" Nullable="false" />
+  </EntityType>
+  <EntityType Name="kits">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="descripcion" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="codigobarras" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <NavigationProperty Name="kitskus" Relationship="DB_A3F19C_producccionModel.kitskus_kits_fk" FromRole="kits" ToRole="kitskus" />
+  </EntityType>
+  <EntityType Name="kitskus">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Cantidad" Type="Int32" />
+    <Property Name="kits_Id" Type="Int32" Nullable="false" />
+    <Property Name="skus_Id" Type="Int32" Nullable="false" />
+    <NavigationProperty Name="kits" Relationship="DB_A3F19C_producccionModel.kitskus_kits_fk" FromRole="kitskus" ToRole="kits" />
+    <NavigationProperty Name="skus" Relationship="DB_A3F19C_producccionModel.kitskus_skus_fk" FromRole="kitskus" ToRole="skus" />
+  </EntityType>
+  <Association Name="kitskus_kits_fk">
+    <End Type="DB_A3F19C_producccionModel.kits" Role="kits" Multiplicity="1" />
+    <End Type="DB_A3F19C_producccionModel.kitskus" Role="kitskus" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="kits">
+        <PropertyRef Name="id" />
+      </Principal>
+      <Dependent Role="kitskus">
+        <PropertyRef Name="kits_Id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="kitskus_skus_fk">
+    <End Type="DB_A3F19C_producccionModel.skus" Role="skus" Multiplicity="1" />
+    <End Type="DB_A3F19C_producccionModel.kitskus" Role="kitskus" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="skus">
+        <PropertyRef Name="id" />
+      </Principal>
+      <Dependent Role="kitskus">
+        <PropertyRef Name="skus_Id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityType Name="wl_cajas">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Codigo" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="wl_statuscajas_Id" Type="Int32" Nullable="false" />
+    <Property Name="Pickers_Id" Type="Int32" />
+    <Property Name="Auditores_Id" Type="Int32" />
+    <Property Name="Paquetes" Type="Int32" />
+    <NavigationProperty Name="auditores" Relationship="DB_A3F19C_producccionModel.wl_cajas_auditores_fk" FromRole="wl_cajas" ToRole="auditores" />
+    <NavigationProperty Name="pickers" Relationship="DB_A3F19C_producccionModel.wl_cajas_pickers_fk" FromRole="wl_cajas" ToRole="pickers" />
+    <NavigationProperty Name="wl_statuscajas" Relationship="DB_A3F19C_producccionModel.wl_cajas_wl_statuscajas_fk" FromRole="wl_cajas" ToRole="wl_statuscajas" />
+    <NavigationProperty Name="wl_detcajassku" Relationship="DB_A3F19C_producccionModel.wl_detcajasku_wl_cajas_fk" FromRole="wl_cajas" ToRole="wl_detcajassku" />
+    <NavigationProperty Name="wl_detenvios" Relationship="DB_A3F19C_producccionModel.wl_detenvios_wl_cajas_fk" FromRole="wl_cajas" ToRole="wl_detenvios" />
+  </EntityType>
+  <Association Name="wl_cajas_auditores_fk">
+    <End Type="DB_A3F19C_producccionModel.auditores" Role="auditores" Multiplicity="0..1" />
+    <End Type="DB_A3F19C_producccionModel.wl_cajas" Role="wl_cajas" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="auditores">
+        <PropertyRef Name="id" />
+      </Principal>
+      <Dependent Role="wl_cajas">
+        <PropertyRef Name="Auditores_Id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="wl_cajas_pickers_fk">
+    <End Type="DB_A3F19C_producccionModel.pickers" Role="pickers" Multiplicity="0..1" />
+    <End Type="DB_A3F19C_producccionModel.wl_cajas" Role="wl_cajas" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="pickers">
+        <PropertyRef Name="id" />
+      </Principal>
+      <Dependent Role="wl_cajas">
+        <PropertyRef Name="Pickers_Id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="wl_cajas_wl_statuscajas_fk">
+    <End Type="DB_A3F19C_producccionModel.wl_statuscajas" Role="wl_statuscajas" Multiplicity="1" />
+    <End Type="DB_A3F19C_producccionModel.wl_cajas" Role="wl_cajas" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="wl_statuscajas">
+        <PropertyRef Name="id" />
+      </Principal>
+      <Dependent Role="wl_cajas">
+        <PropertyRef Name="wl_statuscajas_Id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="wl_detcajasku_wl_cajas_fk">
+    <End Type="DB_A3F19C_producccionModel.wl_cajas" Role="wl_cajas" Multiplicity="1" />
+    <End Type="DB_A3F19C_producccionModel.wl_detcajassku" Role="wl_detcajassku" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="wl_cajas">
+        <PropertyRef Name="id" />
+      </Principal>
+      <Dependent Role="wl_detcajassku">
+        <PropertyRef Name="wl_cajas_Id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="wl_detenvios_wl_cajas_fk">
+    <End Type="DB_A3F19C_producccionModel.wl_cajas" Role="wl_cajas" Multiplicity="1" />
+    <End Type="DB_A3F19C_producccionModel.wl_detenvios" Role="wl_detenvios" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="wl_cajas">
+        <PropertyRef Name="id" />
+      </Principal>
+      <Dependent Role="wl_detenvios">
+        <PropertyRef Name="wl_cajas_Id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityType Name="skusbenavides">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="codigobarras" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="skus_Id" Type="Int32" Nullable="false" />
+    <NavigationProperty Name="skus" Relationship="DB_A3F19C_producccionModel.skusbenavides_skus_fk" FromRole="skusbenavides" ToRole="skus" />
+  </EntityType>
+  <EntityType Name="skushomedelivery">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="codigoqr" Type="Boolean" />
+    <Property Name="qtymanual" Type="Boolean" />
+    <Property Name="skus_Id" Type="Int32" Nullable="false" />
+    <NavigationProperty Name="skus" Relationship="DB_A3F19C_producccionModel.skushomedelivery_skus_fk" FromRole="skushomedelivery" ToRole="skus" />
+  </EntityType>
+  <Association Name="skusbenavides_skus_fk">
+    <End Type="DB_A3F19C_producccionModel.skus" Role="skus" Multiplicity="1" />
+    <End Type="DB_A3F19C_producccionModel.skusbenavides" Role="skusbenavides" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="skus">
+        <PropertyRef Name="id" />
+      </Principal>
+      <Dependent Role="skusbenavides">
+        <PropertyRef Name="skus_Id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="skushomedelivery_skus_fk">
+    <End Type="DB_A3F19C_producccionModel.skus" Role="skus" Multiplicity="1" />
+    <End Type="DB_A3F19C_producccionModel.skushomedelivery" Role="skushomedelivery" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="skus">
+        <PropertyRef Name="id" />
+      </Principal>
+      <Dependent Role="skushomedelivery">
+        <PropertyRef Name="skus_Id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityType Name="hd_codigosqr">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="codigo" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+    <Property Name="hd_ordenes_id" Type="Int32" Nullable="false" />
+    <NavigationProperty Name="hd_ordenes" Relationship="DB_A3F19C_producccionModel.hd_codigosqr_hd_ordenes_fk" FromRole="hd_codigosqr" ToRole="hd_ordenes" />
+  </EntityType>
+  <EntityType Name="hd_guias">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="folioguia" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <NavigationProperty Name="hd_ordenes" Relationship="DB_A3F19C_producccionModel.hd_ordenes_hd_guias_fk" FromRole="hd_guias" ToRole="hd_ordenes" />
+  </EntityType>
+  <EntityType Name="hd_ordenes">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="orden" Type="String" MaxLength="15" FixedLength="false" Unicode="false" />
+    <Property Name="oracleid" Type="String" MaxLength="15" FixedLength="false" Unicode="false" />
+    <Property Name="fechacreacion" Type="DateTime" Precision="3" />
+    <Property Name="fechacierre" Type="DateTime" Precision="3" />
+    <Property Name="paquetes" Type="Int32" />
+    <Property Name="observaciones" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+    <Property Name="Pickers_Id" Type="Int32" Nullable="false" />
+    <Property Name="Auditores_Id" Type="Int32" Nullable="false" />
+    <Property Name="hd_statusquickship_id" Type="Int32" Nullable="false" />
+    <Property Name="hd_statusorden_id" Type="Int32" Nullable="false" />
+    <Property Name="hd_guias_id" Type="Int32" Nullable="false" />
+    <NavigationProperty Name="auditores" Relationship="DB_A3F19C_producccionModel.hd_ordenes_auditores_fk" FromRole="hd_ordenes" ToRole="auditores" />
+    <NavigationProperty Name="hd_codigosqr" Relationship="DB_A3F19C_producccionModel.hd_codigosqr_hd_ordenes_fk" FromRole="hd_ordenes" ToRole="hd_codigosqr" />
+    <NavigationProperty Name="hd_guias" Relationship="DB_A3F19C_producccionModel.hd_ordenes_hd_guias_fk" FromRole="hd_ordenes" ToRole="hd_guias" />
+    <NavigationProperty Name="hd_statusorden" Relationship="DB_A3F19C_producccionModel.hd_ordenes_hd_statusorden_fk" FromRole="hd_ordenes" ToRole="hd_statusorden" />
+    <NavigationProperty Name="hd_statusquickship" Relationship="DB_A3F19C_producccionModel.hd_ordenes_hd_statusquickship_fk" FromRole="hd_ordenes" ToRole="hd_statusquickship" />
+    <NavigationProperty Name="pickers" Relationship="DB_A3F19C_producccionModel.hd_ordenes_pickers_fk" FromRole="hd_ordenes" ToRole="pickers" />
+  </EntityType>
+  <EntityType Name="hd_statusorden">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="descripcion" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <NavigationProperty Name="hd_ordenes" Relationship="DB_A3F19C_producccionModel.hd_ordenes_hd_statusorden_fk" FromRole="hd_statusorden" ToRole="hd_ordenes" />
+  </EntityType>
+  <EntityType Name="hd_statusquickship">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="descripcion" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+    <NavigationProperty Name="hd_ordenes" Relationship="DB_A3F19C_producccionModel.hd_ordenes_hd_statusquickship_fk" FromRole="hd_statusquickship" ToRole="hd_ordenes" />
+  </EntityType>
+  <EntityType Name="hd_detordenesskus">
+    <Key>
+      <PropertyRef Name="id" />
+      <PropertyRef Name="hd_ordenes_id" />
+      <PropertyRef Name="skus_Id" />
+    </Key>
+    <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="cantidad" Type="Int32" />
+    <Property Name="hd_ordenes_id" Type="Int32" Nullable="false" />
+    <Property Name="skus_Id" Type="Int32" Nullable="false" />
+  </EntityType>
+  <Association Name="hd_ordenes_auditores_fk">
+    <End Type="DB_A3F19C_producccionModel.auditores" Role="auditores" Multiplicity="1" />
+    <End Type="DB_A3F19C_producccionModel.hd_ordenes" Role="hd_ordenes" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="auditores">
+        <PropertyRef Name="id" />
+      </Principal>
+      <Dependent Role="hd_ordenes">
+        <PropertyRef Name="Auditores_Id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="hd_codigosqr_hd_ordenes_fk">
+    <End Type="DB_A3F19C_producccionModel.hd_ordenes" Role="hd_ordenes" Multiplicity="1" />
+    <End Type="DB_A3F19C_producccionModel.hd_codigosqr" Role="hd_codigosqr" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="hd_ordenes">
+        <PropertyRef Name="id" />
+      </Principal>
+      <Dependent Role="hd_codigosqr">
+        <PropertyRef Name="hd_ordenes_id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="hd_ordenes_hd_guias_fk">
+    <End Type="DB_A3F19C_producccionModel.hd_guias" Role="hd_guias" Multiplicity="1" />
+    <End Type="DB_A3F19C_producccionModel.hd_ordenes" Role="hd_ordenes" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="hd_guias">
+        <PropertyRef Name="id" />
+      </Principal>
+      <Dependent Role="hd_ordenes">
+        <PropertyRef Name="hd_guias_id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="hd_ordenes_hd_statusorden_fk">
+    <End Type="DB_A3F19C_producccionModel.hd_statusorden" Role="hd_statusorden" Multiplicity="1" />
+    <End Type="DB_A3F19C_producccionModel.hd_ordenes" Role="hd_ordenes" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="hd_statusorden">
+        <PropertyRef Name="id" />
+      </Principal>
+      <Dependent Role="hd_ordenes">
+        <PropertyRef Name="hd_statusorden_id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="hd_ordenes_hd_statusquickship_fk">
+    <End Type="DB_A3F19C_producccionModel.hd_statusquickship" Role="hd_statusquickship" Multiplicity="1" />
+    <End Type="DB_A3F19C_producccionModel.hd_ordenes" Role="hd_ordenes" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="hd_statusquickship">
+        <PropertyRef Name="id" />
+      </Principal>
+      <Dependent Role="hd_ordenes">
+        <PropertyRef Name="hd_statusquickship_id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="hd_ordenes_pickers_fk">
+    <End Type="DB_A3F19C_producccionModel.pickers" Role="pickers" Multiplicity="1" />
+    <End Type="DB_A3F19C_producccionModel.hd_ordenes" Role="hd_ordenes" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="pickers">
+        <PropertyRef Name="id" />
+      </Principal>
+      <Dependent Role="hd_ordenes">
+        <PropertyRef Name="Pickers_Id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+</Schema>

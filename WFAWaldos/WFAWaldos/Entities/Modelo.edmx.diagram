@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="bfa0652c9f854117b7901311c48fcd4d" Name="Diagram1" ZoomLevel="86">
+        <EntityTypeShape EntityType="DB_A3F19C_producccionModel.wl_detcajassku" Width="1.5" PointX="4.375" PointY="5.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="DB_A3F19C_producccionModel.wl_detenvios" Width="1.5" PointX="2.625" PointY="1.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="DB_A3F19C_producccionModel.wl_guias" Width="1.5" PointX="0.5" PointY="2.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="DB_A3F19C_producccionModel.wl_statuscajas" Width="1.5" PointX="9.375" PointY="1.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="DB_A3F19C_producccionModel.wl_tiendas" Width="1.5" PointX="0.5" PointY="0.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="DB_A3F19C_producccionModel.wl_waldos" Width="1.5" PointX="0.5" PointY="4.25" IsExpanded="true" />
+        <AssociationConnector Association="DB_A3F19C_producccionModel.wl_detenvios_wl_guias_fk" ManuallyRouted="false" />
+        <AssociationConnector Association="DB_A3F19C_producccionModel.wl_detenvios_wl_tiendas_fk" ManuallyRouted="false" />
+        <AssociationConnector Association="DB_A3F19C_producccionModel.wl_detenvios_wl_waldos_fk" ManuallyRouted="false" />
+        <EntityTypeShape EntityType="DB_A3F19C_producccionModel.skus" Width="1.5" PointX="4.375" PointY="8.5" />
+        <AssociationConnector Association="DB_A3F19C_producccionModel.wl_detcajasku_skus_fk" />
+        <EntityTypeShape EntityType="DB_A3F19C_producccionModel.auditores" Width="1.5" PointX="9.375" PointY="3.125" />
+        <EntityTypeShape EntityType="DB_A3F19C_producccionModel.pickers" Width="1.5" PointX="6.125" PointY="5.625" />
+        <EntityTypeShape EntityType="DB_A3F19C_producccionModel.empleados" Width="1.5" PointX="6.5" PointY="10.5" />
+        <EntityTypeShape EntityType="DB_A3F19C_producccionModel.kits" Width="1.5" PointX="0.5" PointY="6.25" />
+        <EntityTypeShape EntityType="DB_A3F19C_producccionModel.kitskus" Width="1.5" PointX="0.5" PointY="8.375" />
+        <AssociationConnector Association="DB_A3F19C_producccionModel.kitskus_kits_fk" />
+        <AssociationConnector Association="DB_A3F19C_producccionModel.kitskus_skus_fk" />
+        <EntityTypeShape EntityType="DB_A3F19C_producccionModel.wl_cajas" Width="1.5" PointX="5.125" PointY="1.625" />
+        <AssociationConnector Association="DB_A3F19C_producccionModel.wl_cajas_auditores_fk" />
+        <AssociationConnector Association="DB_A3F19C_producccionModel.wl_cajas_pickers_fk" />
+        <AssociationConnector Association="DB_A3F19C_producccionModel.wl_cajas_wl_statuscajas_fk" />
+        <AssociationConnector Association="DB_A3F19C_producccionModel.wl_detcajasku_wl_cajas_fk" />
+        <AssociationConnector Association="DB_A3F19C_producccionModel.wl_detenvios_wl_cajas_fk" />
+        <EntityTypeShape EntityType="DB_A3F19C_producccionModel.skusbenavides" Width="1.5" PointX="0.5" PointY="10.75" />
+        <EntityTypeShape EntityType="DB_A3F19C_producccionModel.skushomedelivery" Width="1.5" PointX="4.375" PointY="11.875" />
+        <AssociationConnector Association="DB_A3F19C_producccionModel.skusbenavides_skus_fk" />
+        <AssociationConnector Association="DB_A3F19C_producccionModel.skushomedelivery_skus_fk" />
+        <EntityTypeShape EntityType="DB_A3F19C_producccionModel.hd_codigosqr" Width="1.5" PointX="11.875" PointY="9.875" />
+        <EntityTypeShape EntityType="DB_A3F19C_producccionModel.hd_guias" Width="1.5" PointX="6.5" PointY="8.625" />
+        <EntityTypeShape EntityType="DB_A3F19C_producccionModel.hd_ordenes" Width="1.5" PointX="9.5" PointY="6" />
+        <EntityTypeShape EntityType="DB_A3F19C_producccionModel.hd_statusorden" Width="1.5" PointX="11.875" PointY="8" />
+        <EntityTypeShape EntityType="DB_A3F19C_producccionModel.hd_statusquickship" Width="1.5" PointX="11.875" PointY="6" />
+        <EntityTypeShape EntityType="DB_A3F19C_producccionModel.hd_detordenesskus" Width="1.5" PointX="9.5" PointY="11.25" />
+        <AssociationConnector Association="DB_A3F19C_producccionModel.hd_ordenes_auditores_fk" />
+        <AssociationConnector Association="DB_A3F19C_producccionModel.hd_codigosqr_hd_ordenes_fk" />
+        <AssociationConnector Association="DB_A3F19C_producccionModel.hd_ordenes_hd_guias_fk" />
+        <AssociationConnector Association="DB_A3F19C_producccionModel.hd_ordenes_hd_statusorden_fk" />
+        <AssociationConnector Association="DB_A3F19C_producccionModel.hd_ordenes_hd_statusquickship_fk" />
+        <AssociationConnector Association="DB_A3F19C_producccionModel.hd_ordenes_pickers_fk" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>
